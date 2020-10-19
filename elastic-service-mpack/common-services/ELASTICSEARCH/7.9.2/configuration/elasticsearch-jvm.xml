@@ -28,25 +28,7 @@
         <description>Maximum Heap Size</description>
     </property>
     <property>
-        <name>es.tmpdir</name>
-        <value>/tmp</value>
-        <display-name>Temporary directory</display-name>
-        <description>Temporary directory</description>
-    </property>
-    <property>
-        <name>jvm.heap.dump.path</name>
-        <value>/opt/elasticsearch/jvm/data</value>
-        <display-name>Jvm Heap Dump Path</display-name>
-        <description>Jvm Heap Dump Path</description>
-    </property>
-    <property>
-        <name>jvm.gc.log.path</name>
-        <value>/opt/elasticsearch/jvm/log</value>
-        <display-name>Jvm Gc Log Path</display-name>
-        <description>Jvm Gc Log Path</description>
-    </property>
-    <property>
-        <name>jvm.options.content</name>
+        <name>jvm.options.template</name>
         <description>The jinja template for the Elasticsearch JVM options file.</description>
         <value>
 ## JVM configuration
@@ -99,7 +81,7 @@
 14-:-XX:InitiatingHeapOccupancyPercent=30
 
 ## JVM temporary directory
--Djava.io.tmpdir={{es.tmpdir}}
+-Djava.io.tmpdir={{elasticsearch.tmp.path}}
 
 ## heap dumps
 
@@ -109,23 +91,23 @@
 
 # specify an alternative path for heap dumps; ensure the directory exists and
 # has sufficient space
--XX:HeapDumpPath={{jvm.heap.dump.path}}
+-XX:HeapDumpPath={{elasticsearch.log.path}}
 
 # specify an alternative path for JVM fatal error logs
--XX:ErrorFile={{jvm.gc.log.path}}/hs_err_pid%p.log
+-XX:ErrorFile={{elasticsearch.log.path}}/hs_err_pid%p.log
 
 ## JDK 8 GC logging
 8:-XX:+PrintGCDetails
 8:-XX:+PrintGCDateStamps
 8:-XX:+PrintTenuringDistribution
 8:-XX:+PrintGCApplicationStoppedTime
-8:-Xloggc:{{jvm.gc.log.path}}/gc.log
+8:-Xloggc:{{elasticsearch.log.path}}/gc.log
 8:-XX:+UseGCLogFileRotation
 8:-XX:NumberOfGCLogFiles=32
 8:-XX:GCLogFileSize=64m
 
 # JDK 9+ GC logging
-9-:-Xlog:gc*,gc+age=trace,safepoint:file={{jvm.gc.log.path}}/gc.log:utctime,pid,tags:filecount=32,filesize=64m
+9-:-Xlog:gc*,gc+age=trace,safepoint:file={{elasticsearch.log.path}}/gc.log:utctime,pid,tags:filecount=32,filesize=64m
         </value>
     </property>
 </configuration>

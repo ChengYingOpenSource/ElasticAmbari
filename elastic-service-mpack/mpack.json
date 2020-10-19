@@ -1,46 +1,26 @@
 {
-    "type": "full-release",
-    "name": "elastic-ambari-mpack",
-    "version": "0.0.1",
-    "description": "ELK Stack for Ambari Management Pack",
-    "prerequisites": {
-        "min-ambari-version": "2.7.0",
-        "min-stack-versions": [{
-                "stack_name": "HDP",
-                "stack_version": "3.0.0"
-            },
-            {
-                "stack_name": "HDF",
-                "stack_version": "3.0.0"
-            }
-        ]
-    },
-    "artifacts": [{
-            "name": "ELASTICSEARCH-common-services",
-            "type": "service-definitions",
-            "source_dir": "common-services"
-        },
-        {
-            "name": "ELASTICSEARCH-addon-services",
-            "type": "stack-addon-service-definitions",
-            "source_dir": "addon-services",
-            "service_versions_map": [{
-                "service_name": "METRICBEAT",
-                "service_version": "6.3.2",
-                "applicable_stacks": [{
-                        "stack_name": "HDP",
-                        "stack_version": "3.0"
-                    },
-                    {
-                        "stack_name": "HDF",
-                        "stack_version": "3.2"
-                    },
-                    {
-                        "stack_name": "HDF",
-                        "stack_version": "3.3"
-                    }
-                ]
-            }]
-        }
+  "type": "full-release",
+  "name": "elastic-ambari-mpack",
+  "version": "0.0.1",
+  "description": "ELK Stack for Ambari Management Pack",
+  "prerequisites": {
+    "min-ambari-version": "2.7.0",
+    "min-stack-versions": [
+      {
+        "stack_name": "HDP",
+        "stack_version": "3.0.0"
+      },
+      {
+        "stack_name": "HDF",
+        "stack_version": "3.0.0"
+      }
     ]
+  },
+  "artifacts": [
+    {
+      "name": "ELASTICSEARCH-common-services",
+      "type": "service-definitions",
+      "source_dir": "common-services"
+    }
+  ]
 }

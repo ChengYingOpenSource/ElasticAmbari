@@ -314,4 +314,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/linux,windows,vscode,pycharm,vim,python
+# End of https://www.toptal.com/developers/gitignore/api/linux,windows,vscode,pycharm,vim,python#
+!/third-party/
+third-party/*
+.idea/*

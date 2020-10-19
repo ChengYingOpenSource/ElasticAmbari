@@ -21,7 +21,7 @@
             <name>ELASTICSEARCH</name>
             <displayName>Elasticsearch</displayName>
             <comment>A highly scalable open-source full-text search and analytics engine. Including storage, searching, and analyzing big volumes of data quickly and in near real time. </comment>
-            <version>7.5.0</version>
+            <version>7.9.2</version>
             <components>
                 <component>
                     <name>ELASTICSEARCH_MASTER</name>
@@ -30,7 +30,7 @@
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
                     <commandScript>
-                        <script>scripts/es_master.py</script>
+                        <script>scripts/ElasticSearchService.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>1200</timeout>
                     </commandScript>
@@ -41,14 +41,15 @@
                         </log>
                     </logs>
                 </component>
+                
                 <component>
-                    <name>ELASTICSEARCH_SLAVE</name>
-                    <displayName>Elasticsearch Slave</displayName>
+                    <name>ELASTICSEARCH_DATA</name>
+                    <displayName>Elasticsearch Data</displayName>
                     <category>SLAVE</category>
                     <cardinality>0+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
                     <commandScript>
-                        <script>scripts/es_slave.py</script>
+                        <script>scripts/ElasticSearchService.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>1200</timeout>
                     </commandScript>
@@ -65,21 +66,22 @@
                     <osFamily>any</osFamily>
                     <packages>
                         <package>
-                            <name>elasticsearch-7.5.0</name>
+                            <name>elasticsearch-7.9.2</name>
                         </package>
                     </packages>
                 </osSpecific>
             </osSpecifics>
+            
             <commandScript>
-                <script>scripts/service_check.py</script>
+                <script>scripts/ElasticSearchServiceCheck.py</script>
                 <scriptType>PYTHON</scriptType>
                 <timeout>300</timeout>
             </commandScript>
 
             <configuration-dependencies>
-                <config-type>elasticsearch-config</config-type>
                 <config-type>elasticsearch-env</config-type>
-                <config-type>elasticsearch-log4j</config-type>
+                <config-type>elasticsearch-jvm</config-type>
+                <config-type>elasticsearch-site</config-type>
             </configuration-dependencies>
 
             <restartRequiredAfterChange>true</restartRequiredAfterChange>

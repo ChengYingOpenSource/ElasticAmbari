@@ -4,6 +4,7 @@
 
 import os
 import shutil
+import urllib2
 
 def chown(path, uid, gid):
     if os.path.isdir(path):
@@ -23,5 +24,7 @@ def remove(path):
             shutil.rmtree(path)
 
 def cleanDir(path):
-    for x in os.listdir(path):
-        remove(os.path.join(path, x))
+    if os.path.exists(path):
+        for x in os.listdir(path):
+            remove(os.path.join(path, x))
+        

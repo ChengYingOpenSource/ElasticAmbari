@@ -12,14 +12,15 @@ import logging
 import tempfile
 import urllib2
 import yaml
+import socket
 from resource_management import Script, User, Group, Execute, Template
 import Utils
 
-
-class ElasticSearchBaseService(Script):
+class ElasticSearchService(Script):
     def install(self, env):
         import params
-        env.set_params(params)
+        if env is not None:
+            env.set_params(params)
         # do some clean     
         self.__cleanPreviousInstallation()
         # check and create group and user
@@ -31,16 +32,17 @@ class ElasticSearchBaseService(Script):
 
     def start(self, env, upgrade_type=None):
         import params
-        env.set_params(params)
-        cmd = "%s -d -p %s" % (
-        params.elasticSearchMainCmd, params.elasticSearchPidFile)
+        if env is not None:
+            env.set_params(params)
+        cmd = "%s -d -p %s" % (params.elasticSearchMainCmd, params.elasticSearchPidFile)
         logging.info("Start: %s" % cmd)
         Execute(cmd, user=params.elasticSearchUser)
         time.sleep(10)
 
     def stop(self, env, upgrade_type=None):
         import params
-        env.set_params(params)
+        if env is not None:
+            env.set_params(params)
         if os.path.exists(params.elasticSearchPidFile):
             fin = open(params.elasticSearchPidFile, "r")
             pid = int(fin.read())
@@ -56,7 +58,8 @@ class ElasticSearchBaseService(Script):
         
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params
-        env.set_params(params)
+        if env is not None:
+            env.set_params(params)
         self.__createSiteConfig()
         self.__createJvmOptionFile()
 
@@ -152,8 +155,12 @@ class ElasticSearchBaseService(Script):
         configs = {}
         for k, v in params.config["elasticsearch-site"].iteritems():
             configs[k] = v
+        configs["node.master"] = socket.gethostname() in params.elasticSearchMasterHosts
+        configs["node.data"] = socket.gethostname() in params.elasticSearchDataHosts
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
+        configs["discovery.zen.ping.unicast.hosts"] = list(set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
+        configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
         fin.write(yaml.dump(configs))
         fin.close()
@@ -171,8 +178,7 @@ class ElasticSearchBaseService(Script):
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
                     params.elasticSearchGroup)
         
-    
 
 if __name__ == '__main__':
-    service = ElasticSearchBaseService()
+    service = ElasticSearchService()
     service.install(None)

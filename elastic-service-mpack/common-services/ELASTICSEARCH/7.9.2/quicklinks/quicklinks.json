@@ -1,43 +1,43 @@
 {
-    "name": "default",
-    "description": "default quick links configuration",
-    "configuration": {
-      "protocol": {
-        "type":"http",
-        "checks":[
-        ]
-      },
-      "links": [
-        {
-          "name": "elasticsearch_health_link",
-          "label": "ElasticSearch Health",
-          "requires_user_name": "false",
-          "component_name": "ELASTICSEARCH_MASTER",
-          "url":"%@://%@:%@/_cat/health?v",
-          "port":{
-            "http_property": "http_port",
-            "http_default_port": "9200",
-            "https_property": "http_port",
-            "https_default_port": "9200",
-            "regex": "\\w*:(\\d+)",
-            "site": "elastic-config"
-          }
-        },
-        {
-            "name": "elasticsearch_indices_link",
-            "label": "ElasticSearch Indexes",
-            "requires_user_name": "false",
-            "component_name": "ELASTICSEARCH_MASTER",
-            "url":"%@://%@:%@/_cat/indices?v",
-            "port":{
-              "http_property": "http_port",
-              "http_default_port": "9200",
-              "https_property": "http_port",
-              "https_default_port": "9200",
-              "regex": "\\w*:(\\d+)",
-              "site": "elastic-config"
-            }
-          }
+  "name": "default",
+  "description": "default quick links configuration",
+  "configuration": {
+    "protocol": {
+      "type": "http",
+      "checks": [
       ]
-    }
+    },
+    "links": [
+      {
+        "name": "elasticsearch_health_link",
+        "label": "ElasticSearch Health",
+        "requires_user_name": "false",
+        "component_name": "ELASTICSEARCH_MASTER",
+        "url": "%@://%@:%@/_cat/health?v",
+        "port": {
+          "http_property": "elasticSearchHttpPort",
+          "http_default_port": "9200",
+          "https_property": "elasticSearchHttpPort",
+          "https_default_port": "9200",
+          "regex": "\\w*:(\\d+)",
+          "site": "elastic-config"
+        }
+      },
+      {
+        "name": "elasticsearch_indices_link",
+        "label": "ElasticSearch Indexes",
+        "requires_user_name": "false",
+        "component_name": "ELASTICSEARCH_MASTER",
+        "url": "%@://%@:%@/_cat/indices?v",
+        "port": {
+          "http_property": "http_port",
+          "http_default_port": "9200",
+          "https_property": "http_port",
+          "https_default_port": "9200",
+          "regex": "\\w*:(\\d+)",
+          "site": "elastic-config"
+        }
+      }
+    ]
   }
+}
