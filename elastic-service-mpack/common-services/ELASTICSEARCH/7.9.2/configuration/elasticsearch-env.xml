@@ -48,21 +48,21 @@
 
     <property>
         <name>elasticsearch.data.path</name>
-        <value>/opt/elasticsearch/data</value>
+        <value>/opt/elasticsearch-data</value>
         <display-name>ElasticSearch Path Data</display-name>
         <description>Path to directory where to store the data. (separate multiple locations by comma)</description>
     </property>
 
     <property>
         <name>elasticsearch.log.path</name>
-        <value>/var/log/elasticsearch</value>
+        <value>/opt/elasticsearch-logs</value>
         <display-name>ElasticSearch Path Log</display-name>
         <description>Path to directory where to store the logs.</description>
     </property>
 
     <property>
         <name>elasticsearch.pid.file</name>
-        <value>/var/run/elasticsearch/elasticsearch.pid</value>
+        <value>/opt/elasticsearch-logs/elasticsearch.pid</value>
         <display-name>Elasticsearch Pid File</display-name>
         <description>Elasticsearch pid file.</description>
     </property>

@@ -8,5 +8,6 @@
         "/mnt/home/admin/zone/ElasticAmbari/elastic-service-mpack/common-services/ELASTICSEARCH/7.9.2/package/scripts"
     ],
     "editor.fontSize": 16,
-    "editor.fontFamily": "Monaco, Menlo, 'Courier New', monospace"
+    "editor.fontFamily": "Monaco, Menlo, 'Courier New', monospace",
+    "workbench.editor.enablePreview": false
 }

@@ -8,12 +8,12 @@ import grp
 import signal
 import time
 import tarfile
-import logging
 import tempfile
 import urllib2
 import yaml
 import socket
-from resource_management import Script, User, Group, Execute, Template
+import logging
+from resource_management import Script, User, Group, Execute
 import Utils
 
 class ElasticSearchService(Script):
@@ -29,6 +29,8 @@ class ElasticSearchService(Script):
         self.__prepareDirectory()
         self.__extractInstallationFile(self.__downloadInstallationFile())
         logging.info("ElasticSearch install completed")
+        # configure
+        self.configure(env)
 
     def start(self, env, upgrade_type=None):
         import params
@@ -72,19 +74,19 @@ class ElasticSearchService(Script):
         import params
         esHome = params.elasticSearchHome
         esHomeRealPath = os.path.realpath(esHome)
-        logging.warn("Remove %s" % esHomeRealPath)
+        logging.info("Remove %s" % esHomeRealPath)
         Utils.remove(esHomeRealPath)
-        logging.warn("Remove %s" % esHome)
+        logging.info("Remove %s" % esHome)
         Utils.remove(esHome)
 
     def __cleanLogPath(self):
         import params
-        logging.warn("Remove Log Path: %s" % params.elasticSearchLogPath)
+        logging.info("Remove Log Path: %s" % params.elasticSearchLogPath)
         Utils.cleanDir(params.elasticSearchLogPath)
 
     def __cleanPidFile(self):
         import params
-        logging.warn("Remove PID file: %s" % params.elasticSearchPidFile)
+        logging.info("Remove PID file: %s" % params.elasticSearchPidFile)
         Utils.remove(params.elasticSearchPidFile)
 
     def __createGroupIfNotExist(self):
@@ -136,16 +138,19 @@ class ElasticSearchService(Script):
         for name in tar.getnames():
             tar.extract(name, path = os.path.dirname(elasticSearchRealPath))
         tar.close()
+        if os.path.exists(params.elasticSearchHome):
+            os.unlink(params.elasticSearchHome)
         os.symlink(elasticSearchRealPath, params.elasticSearchHome)
         logging.info("Extract installation file: %s" % params.elasticSearchHome)
         Utils.remove(installationFile)
+        for x in [elasticSearchRealPath, params.elasticSearchHome]:
+            Utils.chown(x, params.elasticSearchUser, params.elasticSearchGroup)
 
     def __prepareDirectory(self):
         import params
         for name in [params.elasticSearchDataPath, params.elasticSearchLogPath]:
-            if os.path.exists(name):
-                continue
-            os.makedirs(name, mode=0755)
+            if not os.path.exists(name):
+                os.makedirs(name, mode=0o755)
             Utils.chown(name, params.elasticSearchUser,
                         params.elasticSearchGroup)
             
@@ -153,8 +158,13 @@ class ElasticSearchService(Script):
         import params
         
         configs = {}
-        for k, v in params.config["elasticsearch-site"].iteritems():
-            configs[k] = v
+        for k, v in params.elasticSearchSite.iteritems():
+            if Utils.isBooleanString(v):
+                configs[k] = Utils.toBoolean(v)
+            elif Utils.isNumberic(v):
+                configs[k] = Utils.toNumber(v)
+            else:
+                configs[k] = v
         configs["node.master"] = socket.gethostname() in params.elasticSearchMasterHosts
         configs["node.data"] = socket.gethostname() in params.elasticSearchDataHosts
         configs["path.data"] = params.elasticSearchDataPath
@@ -162,7 +172,7 @@ class ElasticSearchService(Script):
         configs["discovery.zen.ping.unicast.hosts"] = list(set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
         configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
-        fin.write(yaml.dump(configs))
+        fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False, explicit_start=True))
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser, params.elasticSearchGroup)
         
@@ -171,14 +181,17 @@ class ElasticSearchService(Script):
         configs = {}
         for k, v in params.elasticSearchJvm.iteritems():
             configs[k] = v
-        jvmOptionsContent = Template(params.elasticSearchJvmTemplateContent, configurations = configs)
-        fin = open(params.elasticSearchConfigFile, "w")
-        fin.write(jvmOptionsContent)
+        for k, v in params.elasticSearchEnv.iteritems():
+            configs[k] = v
+        content = params.elasticSearchJvmTemplateContent
+        for k, v in configs.iteritems():
+            content = content.replace("{{%s}}" % k, v)
+        fin = open(params.elasticSearchJvmOptionsFile, "w")
+        fin.write(content)
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
                     params.elasticSearchGroup)
-        
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     service = ElasticSearchService()
-    service.install(None)
+    service.execute()

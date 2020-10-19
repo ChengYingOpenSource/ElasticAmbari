@@ -1,7 +1,7 @@
 {
   "type": "full-release",
   "name": "elastic-ambari-mpack",
-  "version": "0.0.1",
+  "version": "7.9.2",
   "description": "ELK Stack for Ambari Management Pack",
   "prerequisites": {
     "min-ambari-version": "2.7.0",
@@ -20,7 +20,31 @@
     {
       "name": "ELASTICSEARCH-common-services",
       "type": "service-definitions",
-      "source_dir": "common-services"
+      "source_dir": "common-services",
+      "service_versions_map": [
+        {
+          "service_name": "ELASTICSEARCH",
+          "service_version": "7.9.2",
+          "applicable_stacks": [
+            {
+              "stack_name": "HDP",
+              "stack_version": "3.0"
+            },
+            {
+              "stack_name": "HDP",
+              "stack_version": "3.1"
+            },
+            {
+              "stack_name": "HDF",
+              "stack_version": "3.2"
+            },
+            {
+              "stack_name": "HDF",
+              "stack_version": "3.3"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
