@@ -1,0 +1,60 @@
+:tada: Begin a project.
+:construction: Work in progress.
+:sparkles: Introduce new features.
+:alembic: Experiment new things
+:boom: Introduce breaking changes.
+:twisted_rightwards_arrows: Merge branches.
+:rewind: Revert changes.
+:lipstick: Add or update the UI and style files.
+:bento: Add or update assets.
+:white_check_mark: Add or update tests.
+:goal_net: Catching errors.
+:alien: Update code due to external API changes.
+:speech_balloon: Add or update text and literals.
+:globe_with_meridians: Internationalization and localization.
+:heavy_plus_sign: Add a dependency.
+:heavy_minus_sign: Remove a dependency.
+:arrow_up: Upgrade dependencies.
+:arrow_down: Downgrade dependencies.
+:pushpin: Pin dependencies to specific versions.
+:package: Add or update compiled files or packages.
+:card_file_box: Perform database related changes.
+:bug: Fix a bug.
+:ambulance: Critical hotfix.
+:lock: Fix security issues.
+:rotating_light: Remove linter warnings.
+:pencil2: Fix typos.
+:clown_face: Mock things.
+:hammer: Add or update build scripts.
+:construction_worker: Add or update CI build system.
+:green_heart: Fix CI Build.
+:rocket: Deploy stuff.
+:bookmark: Release or Version tags.
+:camera_flash: Add or update snapshots.
+:triangular_flag_on_post: Add, update, or remove feature flags.
+:see_no_evil: Add or update a .gitignore file.
+:page_facing_up: Add or update license.
+:busts_in_silhouette: Add or update contributor(s).
+:label: Add or update types (Flow, TypeScript).
+:seedling: Add or update seed files.
+:recycle: Refactor code.
+:zap: Improve performance.
+:art: Improve structure or format of the code.
+:building_construction: Make architectural changes.
+:poop: Write bad code that needs to be improved.
+:children_crossing: Improve user experience or usability.
+:wheelchair: Improve accessibility.
+:bulb: Add or update comments in source code.
+:loud_sound: Add or update logs.
+:mute: Remove logs.
+:chart_with_upwards_trend: Add or update analytics or track code.
+:fire: Remove code or files.
+:wastebasket: Deprecating code that needs to be cleaned up.
+:mag: Improve SEO.
+:iphone: Work on responsive design.
+:dizzy: Add or update animations and transitions.
+:truck: Move or rename resources (e.g.: files, paths, routes).
+:wrench: Add or update configuration files.
+:pencil: Write docs.
+:egg: Add or update an easter egg.
+:beers: Writing code drunkenly.
