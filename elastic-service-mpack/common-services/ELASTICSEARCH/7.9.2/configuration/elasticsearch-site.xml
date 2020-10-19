@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<configuration supports_final="true">
+
+    <!-- Cluster -->
+    <property>
+        <name>cluster.name</name>
+        <value>node-1</value>
+        <display-name>Cluster Name</display-name>
+        <description>Use a descriptive name for your cluster.</description>
+    </property>
+
+    <!-- Node -->
+    <property>
+        <name>node.attr.rack</name>
+        <value>r1</value>
+        <display-name>Node Arribute Rack</display-name>
+        <description>Add custom attributes to the node.</description>
+    </property>
+
+    <!-- Paths -->
+    <property>
+        <name>path.data</name>
+        <value>/opt/elasticsearch/data</value>
+        <display-name>Path Data</display-name>
+        <description>Path to directory where to store the data. (separate multiple locations by comma)</description>
+    </property>
+
+    <property>
+        <name>path.logs</name>
+        <value>/var/log/elasticsearch</value>
+        <display-name>Path Log</display-name>
+        <description>Path to directory where to store the logs.</description>
+    </property>
+
+    <!-- Memory -->
+    <property>
+        <name>bootstrap.memory.lock</name>
+        <value>true</value>
+        <value-attributes>
+            <type>boolean</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <display-name>Bootstrap Memory Lock</display-name>
+        <description>Lock the memory on startup.</description>
+    </property>
+
+    <!-- Network -->
+    <property>
+        <name>network.host</name>
+        <value>0.0.0.0</value>
+        <display-name>Network Host</display-name>
+        <description>Set the bind address to a specific IP. (IPv4 or IPv6)</description>
+    </property>
+
+    <property>
+        <name>http.port</name>
+        <value>9200</value>
+        <display-name>HTTP Port</display-name>
+        <description>Set a custom port for HTTP</description>
+    </property>
+
+    <!-- Gateway -->
+    <property>
+        <name>gateway.recover_after_nodes</name>
+        <value>0</value>
+        <value-attributes>
+            <type>int</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <display-name>Gateway Recover After Nodes</display-name>
+        <description>Block initial recovery after a full cluster restart until N nodes are started</description>
+    </property>
+
+    <!-- Various -->
+    <property>
+        <name>action.destructive_requires_name</name>
+        <value>true</value>
+        <value-attributes>
+            <type>boolean</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <display-name>action destructive_requires_name</display-name>
+        <description>Require explicit names when deleting indices</description>
+    </property>
+
+</configuration>
