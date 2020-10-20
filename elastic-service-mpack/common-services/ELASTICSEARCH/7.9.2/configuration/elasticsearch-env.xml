@@ -16,62 +16,81 @@
 -->
 
 <configuration supports_adding_forbidden="true">
-    <property>
-        <name>elasticsearch.download.url</name>
-        <value>https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-linux-x86_64.tar.gz</value>
-        <display-name>Elasticsearch Download Url</display-name>
-        <description>Elasticsearch package download url, it should be a TAR file.</description>
-    </property>
+  <property>
+    <name>elasticsearch.download.url</name>
+    <value>https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-linux-x86_64.tar.gz</value>
+    <display-name>Elasticsearch Download Url</display-name>
+    <description>Elasticsearch package download url, it should be a TAR file.</description>
+  </property>
 
-    <property>
-        <name>elasticsearch.user</name>
-        <value>elasticsearch</value>
-        <display-name>Elasticsearch User</display-name>
-        <property-type>USER</property-type>
-        <description>Elasticsearch unix user.</description>
-    </property>
+  <property>
+    <name>elasticsearch_user</name>
+    <value>elasticsearch</value>
+    <display-name>Elasticsearch User</display-name>
+    <property-type>USER</property-type>
+    <description>Elasticsearch unix user.</description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+      <user-groups>
+        <property>
+          <type>cluster-env</type>
+          <name>user_group</name>
+        </property>
+        <property>
+          <type>elasticsearch-env</type>
+          <name>elasticsearch_group</name>
+        </property>
+      </user-groups>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
 
-    <property>
-        <name>elasticsearch.group</name>
-        <value>elasticsearch</value>
-        <display-name>Elasticsearch Group</display-name>
-        <property-type>GROUP</property-type>
-        <description>Elasticsearch unix group.</description>
-    </property>
+  <property>
+    <name>elasticsearch_group</name>
+    <value>elasticsearch</value>
+    <display-name>Elasticsearch Group</display-name>
+    <property-type>GROUP</property-type>
+    <description>Elasticsearch unix group.</description>
+    <value-attributes>
+      <type>user</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
 
-    <property>
-        <name>elasticsearch.home</name>
-        <value>/opt/elasticsearch</value>
-        <display-name>Elasticsearch Home Directory</display-name>
-        <description>Elasticsearch home directory.</description>
-    </property>
+  <property>
+    <name>elasticsearch.home</name>
+    <value>/opt/elasticsearch</value>
+    <display-name>Elasticsearch Home Directory</display-name>
+    <description>Elasticsearch home directory.</description>
+  </property>
 
-    <property>
-        <name>elasticsearch.data.path</name>
-        <value>/opt/elasticsearch-data</value>
-        <display-name>ElasticSearch Path Data</display-name>
-        <description>Path to directory where to store the data. (separate multiple locations by comma)</description>
-    </property>
+  <property>
+    <name>elasticsearch.data.path</name>
+    <value>/opt/elasticsearch-data</value>
+    <display-name>ElasticSearch Path Data</display-name>
+    <description>Path to directory where to store the data. (separate multiple locations by comma)</description>
+  </property>
 
-    <property>
-        <name>elasticsearch.log.path</name>
-        <value>/opt/elasticsearch-logs</value>
-        <display-name>ElasticSearch Path Log</display-name>
-        <description>Path to directory where to store the logs.</description>
-    </property>
+  <property>
+    <name>elasticsearch.log.path</name>
+    <value>/opt/elasticsearch-logs</value>
+    <display-name>ElasticSearch Path Log</display-name>
+    <description>Path to directory where to store the logs.</description>
+  </property>
 
-    <property>
-        <name>elasticsearch.pid.file</name>
-        <value>/opt/elasticsearch-logs/elasticsearch.pid</value>
-        <display-name>Elasticsearch Pid File</display-name>
-        <description>Elasticsearch pid file.</description>
-    </property>
-    
-    <property>
-        <name>elasticsearch.tmp.path</name>
-        <value>/tmp</value>
-        <display-name>Elasticsearch Temp Path</display-name>
-        <description>Elasticsearch Temp Path</description>
-    </property>
+  <property>
+    <name>elasticsearch.pid.file</name>
+    <value>/opt/elasticsearch-logs/elasticsearch.pid</value>
+    <display-name>Elasticsearch Pid File</display-name>
+    <description>Elasticsearch pid file.</description>
+  </property>
+
+  <property>
+    <name>elasticsearch.tmp.path</name>
+    <value>/tmp</value>
+    <display-name>Elasticsearch Temp Path</display-name>
+    <description>Elasticsearch Temp Path</description>
+  </property>
 
 </configuration>

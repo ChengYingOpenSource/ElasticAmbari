@@ -4,7 +4,7 @@
 
 import time
 
-from resource_management import check_process_status, Script
+from resource_management import Script, Execute
 from resource_management.core.logger import Logger
 
 

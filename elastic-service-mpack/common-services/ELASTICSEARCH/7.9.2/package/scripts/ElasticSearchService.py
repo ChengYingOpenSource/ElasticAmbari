@@ -3,19 +3,20 @@
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8 ff=unix ft=python
 
 import os
-import pwd
-import grp
 import signal
-import time
+import socket
 import tarfile
 import tempfile
+import time
+
+import Utils
+import grp
+import pwd
 import urllib2
 import yaml
-import socket
 from resource_management import Script, User, Group, Execute
-from resource_management.libraries.functions.check_process_status import check_process_status
 from resource_management.core.logger import Logger
-import Utils
+from resource_management.libraries.functions.check_process_status import check_process_status
 
 
 class ElasticSearchService(Script):
@@ -169,8 +170,6 @@ class ElasticSearchService(Script):
         for k, v in params.elasticSearchSite.iteritems():
             if Utils.isBooleanString(v):
                 configs[k] = Utils.toBoolean(v)
-            elif Utils.isNumberic(v):
-                configs[k] = Utils.toNumber(v)
             else:
                 configs[k] = v
         configs["node.master"] = socket.gethostname() in params.elasticSearchMasterHosts
