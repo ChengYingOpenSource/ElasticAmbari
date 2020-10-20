@@ -15,12 +15,12 @@
         "component_name": "ELASTICSEARCH_MASTER",
         "url": "%@://%@:%@/_cat/health?v",
         "port": {
-          "http_property": "elasticSearchHttpPort",
+          "http_property": "http.port",
           "http_default_port": "9200",
-          "https_property": "elasticSearchHttpPort",
+          "https_property": "http.port",
           "https_default_port": "9200",
-          "regex": "\\w*:(\\d+)",
-          "site": "elastic-config"
+          "regex": "^(\\d+)",
+          "site": "elasticsearch-site"
         }
       },
       {
@@ -30,12 +30,12 @@
         "component_name": "ELASTICSEARCH_MASTER",
         "url": "%@://%@:%@/_cat/indices?v",
         "port": {
-          "http_property": "http_port",
+          "http_property": "http.port",
           "http_default_port": "9200",
-          "https_property": "http_port",
+          "https_property": "http.port",
           "https_default_port": "9200",
-          "regex": "\\w*:(\\d+)",
-          "site": "elastic-config"
+          "regex": "^(\\d+)",
+          "site": "elasticsearch-site"
         }
       }
     ]
