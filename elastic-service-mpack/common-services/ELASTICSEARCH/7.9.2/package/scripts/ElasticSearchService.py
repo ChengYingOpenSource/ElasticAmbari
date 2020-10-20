@@ -12,9 +12,11 @@ import tempfile
 import urllib2
 import yaml
 import socket
-import logging
 from resource_management import Script, User, Group, Execute
+from resource_management.libraries.functions.check_process_status import check_process_status
+from resource_management.core.logger import Logger
 import Utils
+
 
 class ElasticSearchService(Script):
     def install(self, env):
@@ -28,7 +30,7 @@ class ElasticSearchService(Script):
         self.__createUserIfNotExist()
         self.__prepareDirectory()
         self.__extractInstallationFile(self.__downloadInstallationFile())
-        logging.info("ElasticSearch install completed")
+        Logger.info("ElasticSearch install completed")
         # configure
         self.configure(env)
 
@@ -37,7 +39,7 @@ class ElasticSearchService(Script):
         if env is not None:
             env.set_params(params)
         cmd = "%s -d -p %s" % (params.elasticSearchMainCmd, params.elasticSearchPidFile)
-        logging.info("Start: %s" % cmd)
+        Logger.info("Start: %s" % cmd)
         Execute(cmd, user=params.elasticSearchUser)
         time.sleep(10)
 
@@ -57,7 +59,13 @@ class ElasticSearchService(Script):
                 pass
             time.sleep(3)
         Utils.remove(params.elasticSearchPidFile)
-        
+
+    def status(self, env, upgrade_type=None):
+        import params
+        env.set_params(params)
+        time.sleep(5)
+        check_process_status(params.elasticSearchPidFile)
+
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params
         if env is not None:
@@ -74,19 +82,19 @@ class ElasticSearchService(Script):
         import params
         esHome = params.elasticSearchHome
         esHomeRealPath = os.path.realpath(esHome)
-        logging.info("Remove %s" % esHomeRealPath)
+        Logger.info("Remove %s" % esHomeRealPath)
         Utils.remove(esHomeRealPath)
-        logging.info("Remove %s" % esHome)
+        Logger.info("Remove %s" % esHome)
         Utils.remove(esHome)
 
     def __cleanLogPath(self):
         import params
-        logging.info("Remove Log Path: %s" % params.elasticSearchLogPath)
+        Logger.info("Remove Log Path: %s" % params.elasticSearchLogPath)
         Utils.cleanDir(params.elasticSearchLogPath)
 
     def __cleanPidFile(self):
         import params
-        logging.info("Remove PID file: %s" % params.elasticSearchPidFile)
+        Logger.info("Remove PID file: %s" % params.elasticSearchPidFile)
         Utils.remove(params.elasticSearchPidFile)
 
     def __createGroupIfNotExist(self):
@@ -94,10 +102,10 @@ class ElasticSearchService(Script):
         try:
             grp.getgrnam(params.elasticSearchGroup)
         except Exception:
-            logging.info(
+            Logger.info(
                 "Group: %s not existed, create it" % params.elasticSearchGroup)
             Group(params.elasticSearchGroup)
-            logging.info(
+            Logger.info(
                 "Group: %s create successful" % params.elasticSearchGroup)
 
     def __createUserIfNotExist(self):
@@ -105,14 +113,14 @@ class ElasticSearchService(Script):
         try:
             pwd.getpwnam(params.elasticSearchUser)
         except Exception:
-            logging.info(
+            Logger.info(
                 "User: %s not existed, create it" % params.elasticSearchUser)
             User(params.elasticSearchUser,
                  gid=params.elasticSearchGroup,
                  groups=[params.elasticSearchGroup],
                  ignore_failures=True
                  )
-            logging.info(
+            Logger.info(
                 "User: %s create successful" % params.elasticSearchGroup)
 
     def __downloadInstallationFile(self):
@@ -136,12 +144,12 @@ class ElasticSearchService(Script):
         elasticSearchRealPath = os.path.join(os.path.dirname(params.elasticSearchHome), elasticSearchName)
         Utils.remove(elasticSearchRealPath)
         for name in tar.getnames():
-            tar.extract(name, path = os.path.dirname(elasticSearchRealPath))
+            tar.extract(name, path=os.path.dirname(elasticSearchRealPath))
         tar.close()
         if os.path.exists(params.elasticSearchHome):
             os.unlink(params.elasticSearchHome)
         os.symlink(elasticSearchRealPath, params.elasticSearchHome)
-        logging.info("Extract installation file: %s" % params.elasticSearchHome)
+        Logger.info("Extract installation file: %s" % params.elasticSearchHome)
         Utils.remove(installationFile)
         for x in [elasticSearchRealPath, params.elasticSearchHome]:
             Utils.chown(x, params.elasticSearchUser, params.elasticSearchGroup)
@@ -153,10 +161,10 @@ class ElasticSearchService(Script):
                 os.makedirs(name, mode=0o755)
             Utils.chown(name, params.elasticSearchUser,
                         params.elasticSearchGroup)
-            
+
     def __createSiteConfig(self):
         import params
-        
+
         configs = {}
         for k, v in params.elasticSearchSite.iteritems():
             if Utils.isBooleanString(v):
@@ -169,13 +177,15 @@ class ElasticSearchService(Script):
         configs["node.data"] = socket.gethostname() in params.elasticSearchDataHosts
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
-        configs["discovery.zen.ping.unicast.hosts"] = list(set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
+        configs["discovery.zen.ping.unicast.hosts"] = list(
+            set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
         configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
-        fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False, explicit_start=True))
+        fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False,
+                                 explicit_start=True))
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser, params.elasticSearchGroup)
-        
+
     def __createJvmOptionFile(self):
         import params
         configs = {}
@@ -191,6 +201,7 @@ class ElasticSearchService(Script):
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
                     params.elasticSearchGroup)
+
 
 if __name__ == "__main__":
     service = ElasticSearchService()

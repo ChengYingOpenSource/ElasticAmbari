@@ -19,7 +19,7 @@
   <!-- Cluster -->
   <property>
     <name>cluster.name</name>
-    <value>node-1</value>
+    <value>es-cluster</value>
     <display-name>Cluster Name</display-name>
     <description>Use a descriptive name for your cluster.</description>
   </property>

@@ -20,7 +20,12 @@
     {
       "name": "ELASTICSEARCH-common-services",
       "type": "service-definitions",
-      "source_dir": "common-services",
+      "source_dir": "common-services"
+    },
+    {
+      "name": "ELASTICSEARCH-addon-services",
+      "type": "stack-addon-service-definitions",
+      "source_dir": "addon-services",
       "service_versions_map": [
         {
           "service_name": "ELASTICSEARCH",
@@ -31,7 +36,7 @@
               "stack_version": "3.0"
             },
             {
-              "stack_name": "HDP",
+              "stack_name": "HDF",
               "stack_version": "3.1"
             },
             {

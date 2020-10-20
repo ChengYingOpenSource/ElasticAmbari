@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8 ff=unix ft=python
 
-from resource_management import Script
-import os
 import json
 import logging
+import os
+
+from resource_management import Script
 
 config = Script.get_config()
 logging.info(json.dumps(config))
 elasticSearchMasterHosts = config["clusterHostInfo"]["elasticsearch_master_hosts"]
 elasticSearchDataHosts = config["clusterHostInfo"]["elasticsearch_data_hosts"]
 javaHome = config["ambariLevelParams"]["java_home"]
+hostname = config['agentLevelParams']['hostname']
 
 elasticSearchEnv = config["configurations"]["elasticsearch-env"]
 elasticSearchSite = config["configurations"]["elasticsearch-site"]
