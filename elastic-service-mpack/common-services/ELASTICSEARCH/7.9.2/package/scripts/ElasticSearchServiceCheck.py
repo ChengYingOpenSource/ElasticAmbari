@@ -6,7 +6,7 @@ import time
 
 from resource_management import check_process_status, Script
 
-class ServiceCheck(Script):
+class ElasticSearchServiceCheck(Script):
     
     def service_check(self, env):
         import params
@@ -15,4 +15,4 @@ class ServiceCheck(Script):
         check_process_status(params.elasticSearchPidFile)
         
 if __name__ == "__main__":
-    ServiceCheck().execute()
+    ElasticSearchServiceCheck().execute()
