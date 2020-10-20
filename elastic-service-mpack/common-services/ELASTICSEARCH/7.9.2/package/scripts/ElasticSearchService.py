@@ -39,6 +39,8 @@ class ElasticSearchService(Script):
         import params
         if env is not None:
             env.set_params(params)
+        # configure
+        self.configure(env)
         cmd = "%s -d -p %s" % (params.elasticSearchMainCmd, params.elasticSearchPidFile)
         Logger.info("Start: %s" % cmd)
         Execute(cmd, user=params.elasticSearchUser)
@@ -73,6 +75,7 @@ class ElasticSearchService(Script):
             env.set_params(params)
         self.__createSiteConfig()
         self.__createJvmOptionFile()
+        Logger.info("configure over")
 
     def __cleanPreviousInstallation(self):
         self.__cleanLogPath()
