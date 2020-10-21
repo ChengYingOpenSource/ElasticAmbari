@@ -8,6 +8,7 @@ all: package
 	@echo "complete"
 
 package:
+	rm -rf $(BUILD_DIR)
 	mkdir -p $(BUILD_DIR)
 	tar zcf $(BUILD_DIR)/elastic-service-mpack.tar.gz elastic-service-mpack
 
