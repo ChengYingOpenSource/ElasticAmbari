@@ -28,7 +28,7 @@
 
 ### `elasticsearch-jvm`：ElasticSearch的JVM配置
 
-![](https://tva1.sinaimg.cn/large/703708dcly1gjw9qngr92j21ei0tqwhq.jpg)
+![](https://tva1.sinaimg.cn/large/703708dcly1gjwqvf73l4j21jw0g0q4l.jpg)
 
 ## 完成安装
 
