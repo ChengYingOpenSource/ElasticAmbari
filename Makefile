@@ -21,9 +21,12 @@ prepare:
 	mkdir -p $(BUILD_DIR)
 	cp -rf elastic-service-mpack $(BUILD_DIR)/
 	cd $(BUILD_DIR)/
-	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  elastic-service-mpack/addon-services/ELASTICSEARCH/$(DEFAULT_VER) elastic-service-mpack/addon-services/ELASTICSEARCH/$(VERSION); fi 
-	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  elastic-service-mpack/common-services/ELASTICSEARCH/$(DEFAULT_VER) elastic-service-mpack/common-services/ELASTICSEARCH/$(VERSION); fi 
-	find . -name "metainfo.xml" |xargs sed -i 's/<displayName>ElasticSearch<\/displayName>/<displayName>$(NAME)<\/displayName>/g'
+	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  $(BUILD_DIR)/elastic-service-mpack/addon-services/ELASTICSEARCH/$(DEFAULT_VER) $(BUILD_DIR)/elastic-service-mpack/addon-services/ELASTICSEARCH/$(VERSION); fi 
+	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  $(BUILD_DIR)/elastic-service-mpack/common-services/ELASTICSEARCH/$(DEFAULT_VER) $(BUILD_DIR)/elastic-service-mpack/common-services/ELASTICSEARCH/$(VERSION); fi 
+	if [ $(DEFAULT_VER) != $(VERSION) ];then find $(BUILD_DIR) -name "metainfo.xml" |xargs sed -i 's/$(DEFAULT_VER)/$(VERSION)/g'; fi 
+	if [ $(DEFAULT_VER) != $(VERSION) ];then find $(BUILD_DIR) -name "mpack.json" |xargs sed -i 's/"service_version": "$(DEFAULT_VER)"/"service_version": "$(VERSION)"/g'; fi 
+	find $(BUILD_DIR) -name "metainfo.xml" |xargs sed -i 's/<displayName>ElasticSearch<\/displayName>/<displayName>$(NAME)<\/displayName>/g'
+	
 
 package: prepare
 	@echo "package..."

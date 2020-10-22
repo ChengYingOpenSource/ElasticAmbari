@@ -1,7 +1,7 @@
 {
   "type": "full-release",
   "name": "elastic-ambari-mpack",
-  "version": "7.9.2",
+  "version": "1.0.0",
   "description": "ELK Stack for Ambari Management Pack",
   "prerequisites": {
     "min-ambari-version": "2.7.0",
