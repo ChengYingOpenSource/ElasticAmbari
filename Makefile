@@ -20,7 +20,6 @@ prepare:
 	rm -rf $(BUILD_DIR)
 	mkdir -p $(BUILD_DIR)
 	cp -rf elastic-service-mpack $(BUILD_DIR)/
-	cd $(BUILD_DIR)/
 	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  $(BUILD_DIR)/elastic-service-mpack/addon-services/ELASTICSEARCH/$(DEFAULT_VER) $(BUILD_DIR)/elastic-service-mpack/addon-services/ELASTICSEARCH/$(VERSION); fi 
 	if [ $(DEFAULT_VER) != $(VERSION) ];then mv  $(BUILD_DIR)/elastic-service-mpack/common-services/ELASTICSEARCH/$(DEFAULT_VER) $(BUILD_DIR)/elastic-service-mpack/common-services/ELASTICSEARCH/$(VERSION); fi 
 	if [ $(DEFAULT_VER) != $(VERSION) ];then find $(BUILD_DIR) -name "metainfo.xml" |xargs sed -i 's/$(DEFAULT_VER)/$(VERSION)/g'; fi 
@@ -30,8 +29,7 @@ prepare:
 
 package: prepare
 	@echo "package..."
-	cd $(BUILD_DIR)/
-	tar zcf $(BUILD_DIR)/elastic-service-mpack.tar.gz elastic-service-mpack
+	cd $(BUILD_DIR) && tar zcf $(BUILD_DIR)/elastic-service-mpack.tar.gz elastic-service-mpack
 
 clean:
 	rm -rf $(BUILD_DIR)

@@ -15,7 +15,7 @@ make
 ## 安装发布包
 
 ````bash
-ambari-server install-mpack --mpack=./build/elastic-service-mpack.tar.gz -v
+ambari-server install-mpack --mpack=elastic-service-mpack.tar.gz -v
 ````
 
 ## 重启Ambari-Server
@@ -34,3 +34,9 @@ ambari-server restart
 
 - [ElasticSearch服务安装](INSTALL_ELASTICSEARCH.md)
 
+## 卸载发布包（慎用）
+在Ambari-Server上停止ES服务，并删除ES服务，然后在ambari-server节点执行卸载命令
+````bash
+ambari-server uninstall-mpack --mpack-name=elastic-ambari-mpack -v
+````
+重启Ambari-Server即可卸载该插件。
