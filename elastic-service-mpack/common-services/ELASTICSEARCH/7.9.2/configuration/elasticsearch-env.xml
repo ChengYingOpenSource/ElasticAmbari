@@ -92,5 +92,10 @@
     <display-name>Elasticsearch Temp Path</display-name>
     <description>Elasticsearch Temp Path</description>
   </property>
-
+  <property>
+    <name>master.is.datanode</name>
+    <value>true</value>
+    <display-name>Elasticsearch masters is datanode</display-name>
+    <description>Elasticsearch masters is datanode</description>
+  </property>
 </configuration>

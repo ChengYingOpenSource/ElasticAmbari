@@ -27,6 +27,7 @@ elasticSearchDataPath = elasticSearchEnv["elasticsearch.data.path"]
 elasticSearchLogPath = elasticSearchEnv["elasticsearch.log.path"]
 elasticSearchPidFile = elasticSearchEnv["elasticsearch.pid.file"]
 elasticSearchTmpDir = elasticSearchEnv["elasticsearch.tmp.path"]
+masterIsDatanode = elasticSearchEnv['master.is.datanode']
 elasticSearchConfigDir = os.path.join(elasticSearchHome, "config")
 elasticSearchConfigFile = os.path.join(elasticSearchConfigDir,
                                        "elasticsearch.yml")

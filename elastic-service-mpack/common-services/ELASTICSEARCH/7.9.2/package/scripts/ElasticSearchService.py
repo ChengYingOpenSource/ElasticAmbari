@@ -175,8 +175,12 @@ class ElasticSearchService(Script):
                 configs[k] = Utils.toBoolean(v)
             else:
                 configs[k] = v
-        configs["node.master"] = socket.gethostname() in params.elasticSearchMasterHosts
-        configs["node.data"] = socket.gethostname() in params.elasticSearchDataHosts
+        isMasterNode = socket.gethostname() in params.elasticSearchMasterHosts
+        configs["node.master"] = isMasterNode
+        if isMasterNode:
+            configs["node.data"] = params.masterIsDatanode
+        else:
+            configs["node.data"] = socket.gethostname() in params.elasticSearchDataHosts
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
         configs["discovery.zen.ping.unicast.hosts"] = list(
