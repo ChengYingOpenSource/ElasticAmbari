@@ -181,30 +181,30 @@ class ElasticSearchService(Script):
         configs["path.logs"] = params.elasticSearchLogPath
         configs["discovery.zen.ping.unicast.hosts"] = list(
             set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
-        if params.serviceVersion and params.serviceVersion >= "7.0.0"
-            configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
+        configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
         fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False,
                                  explicit_start=True))
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser, params.elasticSearchGroup)
 
-        def __createJvmOptionFile(self):
-            import params
-            configs = {}
-            for k, v in params.elasticSearchJvm.iteritems():
-                configs[k] = v
-            for k, v in params.elasticSearchEnv.iteritems():
-                configs[k] = v
-            content = params.elasticSearchJvmTemplateContent
-            for k, v in configs.iteritems():
-                content = content.replace("{{%s}}" % k, v)
-            fin = open(params.elasticSearchJvmOptionsFile, "w")
-            fin.write(content)
-            fin.close()
-            Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
-                        params.elasticSearchGroup)
+    def __createJvmOptionFile(self):
+        import params
+        configs = {}
+        for k, v in params.elasticSearchJvm.iteritems():
+            configs[k] = v
+        for k, v in params.elasticSearchEnv.iteritems():
+            configs[k] = v
+        content = params.elasticSearchJvmTemplateContent
+        for k, v in configs.iteritems():
+            content = content.replace("{{%s}}" % k, v)
+        fin = open(params.elasticSearchJvmOptionsFile, "w")
+        fin.write(content)
+        fin.close()
+        Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
+                    params.elasticSearchGroup)
 
-    if __name__ == "__main__":
-        service = ElasticSearchService()
-        service.execute()
+
+if __name__ == "__main__":
+    service = ElasticSearchService()
+    service.execute()
