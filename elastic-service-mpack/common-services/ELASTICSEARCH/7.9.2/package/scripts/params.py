@@ -15,6 +15,7 @@ elasticSearchDataHosts = config["clusterHostInfo"]["elasticsearch_data_hosts"]
 javaHome = config["ambariLevelParams"]["java_home"]
 hostname = config['agentLevelParams']['hostname']
 
+serviceVersion = config['serviceLevelParams']['version']
 elasticSearchEnv = config["configurations"]["elasticsearch-env"]
 elasticSearchSite = config["configurations"]["elasticsearch-site"]
 elasticSearchJvm = config["configurations"]["elasticsearch-jvm"]

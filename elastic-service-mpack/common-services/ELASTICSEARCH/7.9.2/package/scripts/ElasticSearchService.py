@@ -181,7 +181,8 @@ class ElasticSearchService(Script):
         configs["path.logs"] = params.elasticSearchLogPath
         configs["discovery.zen.ping.unicast.hosts"] = list(
             set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
-        configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
+        if params.serviceVersion and params.serviceVersion >= "7.0.0":
+            configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
         fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False,
                                  explicit_start=True))
