@@ -20,7 +20,7 @@
   <property>
     <name>cluster.name</name>
     <value>es-cluster</value>
-    <display-name>Cluster Name</display-name>
+    <display-name>cluster.name</display-name>
     <description>Use a descriptive name for your cluster.</description>
   </property>
 
@@ -28,7 +28,7 @@
   <property>
     <name>node.attr.rack</name>
     <value>r1</value>
-    <display-name>Node Arribute Rack</display-name>
+    <display-name>node.attr.rack</display-name>
     <description>Add custom attributes to the node.</description>
   </property>
 
@@ -36,7 +36,7 @@
   <property>
     <name>network.host</name>
     <value>0.0.0.0</value>
-    <display-name>Network Host</display-name>
+    <display-name>network.host</display-name>
     <description>Set the bind address to a specific IP. (IPv4 or IPv6)</description>
   </property>
 
@@ -45,10 +45,10 @@
     <value>9200</value>
     <value-attributes>
       <type>int</type>
-      <minimum>0</minimum>
-      <maximum>2592000000</maximum>
+      <minimum>1</minimum>
+      <maximum>65535</maximum>
     </value-attributes>
-    <display-name>HTTP Port</display-name>
+    <display-name>http.port</display-name>
     <description>Set a custom port for HTTP</description>
   </property>
 
@@ -59,14 +59,14 @@
       <type>boolean</type>
       <overridable>false</overridable>
     </value-attributes>
-    <display-name>HTTP CORS Enabled</display-name>
+    <display-name>http.cors.enabled</display-name>
     <description>Enable or disable cross-origin resource sharing, which determines whether a browser on another origin can execute requests against Elasticsearch. Set to true to enable Elasticsearch to process pre-flight CORS requests. Elasticsearch will respond to those requests with the Access-Control-Allow-Origin header if the Origin sent in the request is permitted by the http.cors.allow-origin list. Set to false (the default) to make Elasticsearch ignore the Origin request header, effectively disabling CORS requests because Elasticsearch will never respond with the Access-Control-Allow-Origin response header.</description>
   </property>
 
   <property>
     <name>http.cors.allow-origin</name>
     <value>*</value>
-    <display-name>HTTP CORS Allow-Origin</display-name>
+    <display-name>http.cors.allow-origin</display-name>
     <description>Which origins to allow. If you prepend and append a forward slash (/) to the value, this will be treated as a regular expression, allowing you to support HTTP and HTTPs. For example, using /https?:\/\/localhost(:[0-9]+)?/ would return the request header appropriately in both cases. Defaults to no origins allowed.</description>
   </property>
 
@@ -79,14 +79,14 @@
       <minimum>0</minimum>
       <maximum>2592000000</maximum>
     </value-attributes>
-    <display-name>Gateway Recover After Nodes</display-name>
+    <display-name>gateway.recover_after_data_nodes</display-name>
     <description>Recover as long as this many data nodes have joined the cluster.</description>
   </property>
 
   <property>
     <name>gateway.recover_after_time</name>
     <value>15m</value>
-    <display-name>Gateway Recover After Time</display-name>
+    <display-name>gateway.recover_after_time</display-name>
     <description>If the expected number of nodes is not achieved, the recovery process waits for the configured amount of time before trying to recover. Defaults to 5m if one of the expected_nodes settings is configured.</description>
   </property>
 
@@ -98,7 +98,7 @@
       <minimum>0</minimum>
       <maximum>2592000000</maximum>
     </value-attributes>
-    <display-name>Gateway Expected Data Nodes</display-name>
+    <display-name>gateway.expected_data_nodes</display-name>
     <description>Number of data nodes expected in the cluster. Recovery of local shards begins when the expected number of data nodes join the cluster. Defaults to 0.</description>
   </property>
 
@@ -110,8 +110,8 @@
       <type>boolean</type>
       <overridable>false</overridable>
     </value-attributes>
-    <display-name>action destructive_requires_name</display-name>
-    <description>Require explicit names when deleting indices</description>
+    <display-name>action.destructive_requires_name</display-name>
+    <description>Require explicit names when deleting indices.</description>
   </property>
-  `
+  
 </configuration>

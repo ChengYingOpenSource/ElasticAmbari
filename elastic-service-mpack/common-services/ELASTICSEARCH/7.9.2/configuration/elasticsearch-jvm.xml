@@ -29,6 +29,7 @@
     </property>
     <property>
         <name>jvm.options.template</name>
+        <display-name>JVM Options Template</display-name>
         <description>The jinja template for the Elasticsearch JVM options file.</description>
         <value>
 ## JVM configuration
