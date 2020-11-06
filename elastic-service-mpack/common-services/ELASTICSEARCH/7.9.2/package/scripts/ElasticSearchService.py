@@ -160,7 +160,7 @@ class ElasticSearchService(Script):
 
     def __prepareDirectory(self):
         import params
-        for name in [params.elasticSearchDataPath, params.elasticSearchLogPath]:
+        for name in [params.elasticSearchDataPath, params.elasticSearchLogPath, os.path.dirname(params.elasticSearchPidFile)]:
             if not os.path.exists(name):
                 os.makedirs(name, mode=0o755)
             Utils.chown(name, params.elasticSearchUser,

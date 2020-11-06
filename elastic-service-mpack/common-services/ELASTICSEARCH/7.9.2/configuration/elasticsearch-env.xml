@@ -74,14 +74,14 @@
 
   <property>
     <name>elasticsearch.log.path</name>
-    <value>/opt/elasticsearch-logs</value>
+    <value>/var/log/elasticsearch/</value>
     <display-name>ElasticSearch Path Log</display-name>
     <description>Path to directory where to store the logs.</description>
   </property>
 
   <property>
     <name>elasticsearch.pid.file</name>
-    <value>/opt/elasticsearch-logs/elasticsearch.pid</value>
+    <value>/var/run/elasticsearch/elasticsearch.pid</value>
     <display-name>Elasticsearch Pid File</display-name>
     <description>Elasticsearch pid file.</description>
   </property>
@@ -92,6 +92,7 @@
     <display-name>Elasticsearch Temp Path</display-name>
     <description>Elasticsearch Temp Path</description>
   </property>
+
   <property>
     <name>master.is.datanode</name>
     <value>true</value>
