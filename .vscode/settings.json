@@ -3,7 +3,7 @@
         "/usr/lib/ambari-agent/lib",
         "/usr/lib/ambari-agent/lib/resource_management",
         "/usr/lib/ambari-agent/lib/resource_management/libraries",
-        "/mnt/home/admin/zone/ElasticAmbari/elastic-service-mpack/common-services/ELASTICSEARCH/7.9.2/package/scripts"
+        "/mnt/home/admin/zone/ElasticAmbari/elastic-service-mpack/common-services/ELASTICSEARCH/x.y.z/package/scripts"
     ],
     "python.languageServer": "Pylance",
     "python.pythonPath": "/usr/bin/python",
