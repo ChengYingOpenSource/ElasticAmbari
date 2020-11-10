@@ -1,44 +1,41 @@
-# Makefile
 CURRENT_PATH := $(shell pwd)
 BUILD_DIR := $(CURRENT_PATH)/build
-DEFAULT_VER=7.9.2
-ifndef NAME
-NAME = ElasticSearch
+ifndef ELASTIC_VERSION
+ELASTIC_VERSION := $(shell bash $(CURRENT_PATH)/get-latest-elastic-version.sh)
 endif
-ifndef VERSION
-VERSION = ${DEFAULT_VER}
-endif
+DEFAULT_VERSION := x.y.z
 SRC_PKG_NAME := elastic-service-mpack
 DEST_PKG_DIR := $(BUILD_DIR)/$(SRC_PKG_NAME)
 PYYAML_DIR := $(BUILD_DIR)/pyyaml
 
 .PHONY:all
 
-all: package
-	@echo "complete"
+all: clean package
+	@echo "completed"
 
-prepare:
-	@echo "prepare..."
-	rm -rf $(BUILD_DIR)
+prepare: prepare-build prepare-elasticsearch
+	@echo "prepare completed"
+
+prepare-build:
 	mkdir -p $(BUILD_DIR)
-	cp -rf $(SRC_PKG_NAME) $(BUILD_DIR)/
-	if [ $(DEFAULT_VER) != $(VERSION) ];then mv $(DEST_PKG_DIR)/addon-services/ELASTICSEARCH/$(DEFAULT_VER) $(DEST_PKG_DIR)/ELASTICSEARCH/$(VERSION); fi 
-	if [ $(DEFAULT_VER) != $(VERSION) ];then mv $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(DEFAULT_VER) $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(VERSION); fi 
-	if [ $(DEFAULT_VER) != $(VERSION) ];then find $(BUILD_DIR) -name "metainfo.xml" |xargs sed -i 's/$(DEFAULT_VER)/$(VERSION)/g'; fi 
-	if [ $(DEFAULT_VER) != $(VERSION) ];then find $(BUILD_DIR) -name "mpack.json" |xargs sed -i 's/"service_version": "$(DEFAULT_VER)"/"service_version": "$(VERSION)"/g'; fi 
-	find $(BUILD_DIR) -name "metainfo.xml" |xargs sed -i 's/<displayName>ElasticSearch<\/displayName>/<displayName>$(NAME)<\/displayName>/g'
-	# download pyyaml
-	git clone https://github.com/yaml/pyyaml.git $(PYYAML_DIR) && cd $(PYYAML_DIR) && python setup.py --without-libyaml build && cp -rp $(PYYAML_DIR)/build/*/yaml $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(VERSION)/package/scripts/
+	cp -rf $(SRC_PKG_NAME) $(BUILD_DIR)
 
+prepare-elasticsearch:
+	mv -v $(DEST_PKG_DIR)/addon-services/ELASTICSEARCH/$(DEFAULT_VERSION) $(DEST_PKG_DIR)/addon-services/ELASTICSEARCH/$(ELASTIC_VERSION)
+	mv -v $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(DEFAULT_VERSION) $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(ELASTIC_VERSION)
+	xmlstarlet ed --inplace -u /metainfo/services/service/version -v $(ELASTIC_VERSION) -u /metainfo/services/service/extends -v common-services/ELASTICSEARCH/$(ELASTIC_VERSION) $(DEST_PKG_DIR)/addon-services/ELASTICSEARCH/$(ELASTIC_VERSION)/metainfo.xml 
+	xmlstarlet ed --inplace -u /metainfo/services/service/version -v $(ELASTIC_VERSION) -u /metainfo/services/service/osSpecifics/osSpecific/packages/package/name -v elasticsearch-$(ELASTIC_VERSION) $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(ELASTIC_VERSION)/metainfo.xml 
+	xmlstarlet ed --inplace -u "/configuration/property[@name='elasticsearch.download.url']/value" -v "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$(ELASTIC_VERSION)-linux-x86_64.tar.gz" $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(ELASTIC_VERSION)/configuration/elasticsearch-env.xml
+	sed -s -i 's#$(DEFAULT_VERSION)#$(ELASTIC_VERSION)#g' $(DEST_PKG_DIR)/mpack.json
+	git clone https://github.com/yaml/pyyaml.git $(PYYAML_DIR) && cd $(PYYAML_DIR) && python setup.py --without-libyaml build && cp -rp $(PYYAML_DIR)/build/*/yaml $(DEST_PKG_DIR)/common-services/ELASTICSEARCH/$(ELASTIC_VERSION)/package/scripts/
+	
 package: prepare
-	@echo "package ..."
 	cd $(BUILD_DIR) && tar zcf $(BUILD_DIR)/$(SRC_PKG_NAME).tar.gz $(SRC_PKG_NAME)
+	@echo "package completed"
 
 clean:
-	rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 help:
 	@echo "do make build release mpack tar"
-	@echo "do make NAME=custom service name build release mpack tar"
-	@echo "do make VERSION=custom version build release mpack tar"
-	@echo "do make NAME=custom service name VERSION=custom version build release mpack tar"
+	@echo "do ELASTIC_VERSION=custom version build release mpack tar"

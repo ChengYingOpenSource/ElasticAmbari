@@ -21,7 +21,7 @@
             <name>ELASTICSEARCH</name>
             <displayName>ElasticSearch</displayName>
             <comment>A highly scalable open-source full-text search and analytics engine. Including storage, searching, and analyzing big volumes of data quickly and in near real time. </comment>
-            <version>7.9.2</version>
+            <version>x.y.z</version>
             <components>
                 <component>
                     <name>ELASTICSEARCH_MASTER</name>
@@ -66,7 +66,7 @@
                     <osFamily>any</osFamily>
                     <packages>
                         <package>
-                            <name>elasticsearch-7.9.2</name>
+                            <name>elasticsearch-x.y.z</name>
                         </package>
                     </packages>
                 </osSpecific>
