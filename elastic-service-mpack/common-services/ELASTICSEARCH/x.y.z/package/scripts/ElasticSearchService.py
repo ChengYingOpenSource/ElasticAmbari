@@ -125,7 +125,7 @@ class ElasticSearchService(Script):
                  ignore_failures=True
                  )
             Logger.info(
-                "User: %s create successful" % params.elasticSearchGroup)
+                "User: %s create successful" % params.elasticSearchUser)
 
     def __downloadInstallationFile(self):
         import params
