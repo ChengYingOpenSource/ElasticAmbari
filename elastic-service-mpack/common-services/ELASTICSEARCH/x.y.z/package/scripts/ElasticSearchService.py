@@ -2,16 +2,15 @@
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8 ff=unix ft=python
 
+import Utils
+import grp
 import os
+import pwd
 import signal
 import socket
 import tarfile
 import tempfile
 import time
-
-import Utils
-import grp
-import pwd
 import urllib2
 import yaml
 from resource_management import Script, User, Group, Execute
@@ -87,6 +86,8 @@ class ElasticSearchService(Script):
         esHome = params.elasticSearchHome
         esHomeRealPath = os.path.realpath(esHome)
         Logger.info("Remove %s" % esHomeRealPath)
+        if os.path.exists(esHome):
+            os.unlink(esHome)
         Utils.remove(esHomeRealPath)
         Logger.info("Remove %s" % esHome)
         Utils.remove(esHome)
@@ -160,7 +161,8 @@ class ElasticSearchService(Script):
 
     def __prepareDirectory(self):
         import params
-        for name in [params.elasticSearchDataPath, params.elasticSearchLogPath, os.path.dirname(params.elasticSearchPidFile)]:
+        for name in [params.elasticSearchDataPath, params.elasticSearchLogPath,
+                     os.path.dirname(params.elasticSearchPidFile)]:
             if not os.path.exists(name):
                 os.makedirs(name, mode=0o755)
             Utils.chown(name, params.elasticSearchUser,

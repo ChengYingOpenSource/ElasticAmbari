@@ -35,7 +35,7 @@ prepare-kibana:
 	mv -v $(DEST_PKG_DIR)/common-services/KIBANA/$(DEFAULT_VERSION) $(DEST_PKG_DIR)/common-services/KIBANA/$(ELASTIC_VERSION)
 	xmlstarlet ed --inplace -u /metainfo/services/service/version -v $(ELASTIC_VERSION) -u /metainfo/services/service/extends -v common-services/KIBANA/$(ELASTIC_VERSION) $(DEST_PKG_DIR)/addon-services/KIBANA/$(ELASTIC_VERSION)/metainfo.xml 
 	xmlstarlet ed --inplace -u /metainfo/services/service/version -v $(ELASTIC_VERSION) -u /metainfo/services/service/osSpecifics/osSpecific/packages/package/name -v kibana-$(ELASTIC_VERSION) $(DEST_PKG_DIR)/common-services/KIBANA/$(ELASTIC_VERSION)/metainfo.xml 
-	xmlstarlet ed --inplace -u "/configuration/property[@name='elasticsearch.download.url']/value" -v "https://artifacts.elastic.co/downloads/kibana/kibana-$(ELASTIC_VERSION)-linux-x86_64.tar.gz" $(DEST_PKG_DIR)/common-services/KIBANA/$(ELASTIC_VERSION)/configuration/kibana-env.xml
+	xmlstarlet ed --inplace -u "/configuration/property[@name='kibana.download.url']/value" -v "https://artifacts.elastic.co/downloads/kibana/kibana-$(ELASTIC_VERSION)-linux-x86_64.tar.gz" $(DEST_PKG_DIR)/common-services/KIBANA/$(ELASTIC_VERSION)/configuration/kibana-env.xml
 	git clone https://github.com/yaml/pyyaml.git $(PYYAML_DIR) && cd $(PYYAML_DIR) && python setup.py --without-libyaml build && cp -rp $(PYYAML_DIR)/build/*/yaml $(DEST_PKG_DIR)/common-services/KIBANA/$(ELASTIC_VERSION)/package/scripts/
 	rm -rf $(PYYAML_DIR)
 	

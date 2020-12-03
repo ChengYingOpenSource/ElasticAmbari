@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-git -c 'versionsort.suffix=-' ls-remote --tags   https://github.com/elastic/elasticsearch | grep -v { |tail -n 1 | awk -F 'refs/tags/v' '{print $2}'
+wget --no-check-certificate -qO- https://api.github.com/repos/elastic/elasticsearch/releases/latest | grep 'tag_name' | cut -d\" -f4 | head -1

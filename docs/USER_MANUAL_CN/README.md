@@ -5,14 +5,34 @@
 # 安装
 
 ## 从源码构建发布包
-
+* centos环境准备
+````bash
+ yum install -y make xmlstarlet
+````
+* ubuntu环境准备
+````bash
+ apt install -y make xmlstarlet
+````
+* 源码获取
 ````bash
 git clone https://github.com/ChengYingOpenSource/ElasticAmbari.git
+````
+* 编译适配最新版本安装包
+````bash
 cd ElasticAmbari
 make
 ````
-
-## 安装发布包
+* 编译适配指定版本安装包 （添加参数 ELASTIC_VERSION=指定版本号）
+````bash
+cd ElasticAmbari
+make ELASTIC_VERSION=6.3.2
+````
+* 进入build目录，获取安装包  elastic-service-mpack.tar.gz
+````bash
+cd build
+ls elastic-service-mpack.tar.gz
+````
+## 登陆ambari-server节点，导入编译后安装包，安装发布包
 
 ````bash
 ambari-server install-mpack --mpack=elastic-service-mpack.tar.gz -v
