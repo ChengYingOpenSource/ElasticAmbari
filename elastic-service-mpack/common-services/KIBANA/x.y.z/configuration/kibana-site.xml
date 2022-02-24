@@ -49,19 +49,19 @@
     <display-name>logging.root.level</display-name>
   </property>
   <property>
-    <name>logging.appenders.type</name>
+    <name>logging.appenders.file.file.type</name>
     <value>file</value>
-    <display-name>logging.appenders.type</display-name>
+    <display-name>logging.appenders.file.type</display-name>
   </property>
   <property>
-    <name>logging.appenders.fileName</name>
+    <name>logging.appenders.file.fileName</name>
     <value>kibana</value>
-    <display-name>logging.appenders.fileName</display-name>
+    <display-name>logging.appenders.file.fileName</display-name>
   </property>
   <property>
-    <name>logging.appenders.layout.type</name>
+    <name>logging.appenders.file.layout.type</name>
     <value>json</value>
-    <display-name>logging.appenders.layout.type</display-name>
+    <display-name>logging.appenders.file.layout.type</display-name>
   </property>
   <property>
     <name>logging.root.appenders</name>
