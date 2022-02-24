@@ -180,14 +180,14 @@ class ElasticSearchService(Script):
         hostname = socket.gethostname()
         isMasterNode = hostname in params.elasticSearchMasterHosts
         configs["node.name"] = hostname
-        configs["node.master"] = isMasterNode
         if isMasterNode:
-            configs["node.data"] = params.masterIsDatanode
+            if params.masterIsDatanode
+                configs["node.roles"] = "[data,master]"
         else:
-            configs["node.data"] = hostname in params.elasticSearchDataHosts
+            configs["node.roles"] = "[data]"
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
-        configs["discovery.zen.ping.unicast.hosts"] = list(
+        configs["discovery.seed_hosts"] = list(
             set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
         if params.serviceVersion and params.serviceVersion >= "7.0.0":
             configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
