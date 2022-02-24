@@ -20,7 +20,7 @@ prepare: prepare-build prepare-elasticsearch prepare-kibana
 prepare-build:
 	mkdir -p $(BUILD_DIR)
 	cp -rf $(SRC_PKG_NAME) $(BUILD_DIR)
-	git clone https://github.com/yaml/pyyaml.git $(PYYAML_DIR) && cd $(PYYAML_DIR) && python setup.py --without-libyaml build 
+	git clone https://github.com/yaml/pyyaml.git $(PYYAML_DIR) && cd $(PYYAML_DIR) && git checkout tags/5.4.1.1 && python setup.py --without-libyaml build 
 
 
 prepare-elasticsearch:
