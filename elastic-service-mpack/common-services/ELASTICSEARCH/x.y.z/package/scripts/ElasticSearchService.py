@@ -182,11 +182,10 @@ class ElasticSearchService(Script):
         configs["node.name"] = hostname
         if isMasterNode:
             if params.masterIsDatanode:
-                configs["node.roles"] = list(
-                    'data','master'
-                )
+                configs["node.roles"] = ['data','master']
+                
         else:
-            configs["node.roles"] = list('data')
+            configs["node.roles"] = ['data']
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
         configs["discovery.seed_hosts"] = list(
