@@ -35,6 +35,13 @@
     <display-name>server.host</display-name>
     <description>Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values. The default is 'localhost', which usually means remote machines will not be able to connect. To allow connections from remote users, set this parameter to a non-loopback address.</description>
   </property>
+  
+  <property>
+    <name>server.name</name>
+    <value>kibana</value>
+    <display-name>server.name</display-name>
+  </property>
+  
 
   <property>
     <name>logging.root.level</name>
@@ -47,35 +54,31 @@
     <display-name>logging.appenders.type</display-name>
   </property>
   <property>
-    <name>logging.appenders.fileName:</name>
+    <name>logging.appenders.fileName</name>
     <value>kibana</value>
-    <display-name>logging.appenders.fileName:</display-name>
+    <display-name>logging.appenders.fileName</display-name>
   </property>
   <property>
-    <name>server.name</name>
-    <value>kibana</value>
-    <display-name>server.name</display-name>
+    <name>logging.appenders.layout.type</name>
+    <value>json</value>
+    <display-name>logging.appenders.layout.type</display-name>
+  </property>
+  <property>
+    <name>logging.root.appenders</name>
+    <value>[default,file]</value>
+    <display-name>logging.root.appenders</display-name>
   </property>
 
   <property>
-    <name>server.maxPayloadBytes</name>
-    <value>1048576</value>
-    <value-attributes>
-      <type>int</type>
-    </value-attributes>
-    <display-name>server.maxPayloadBytes</display-name>
-    <description>The maximum payload size in bytes for incoming server requests.</description>
+    <name>data.autocomplete.valueSuggestions.timeout</name>
+    <value>100000000</value>
+    <display-name>data.autocomplete.valueSuggestions.timeout</display-name>
   </property>
 
   <property>
-    <name>elasticsearch.preserveHost</name>
-    <value>true</value>
-    <value-attributes>
-      <type>boolean</type>
-      <overridable>false</overridable>
-    </value-attributes>
-    <display-name>elasticsearch.preserveHost</display-name>
-    <description>When this setting's value is true Kibana uses the hostname specified in the server.host setting. When the value of this setting is false, Kibana uses the hostname of the host that connects to this Kibana instance.</description>
+    <name>data.autocomplete.valueSuggestions.terminateAfter</name>
+    <value>100000000</value>
+    <display-name>data.autocomplete.valueSuggestions.terminateAfter</display-name>
   </property>
   
 </configuration>
