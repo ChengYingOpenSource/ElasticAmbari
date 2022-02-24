@@ -49,13 +49,13 @@
     <display-name>logging.root.level</display-name>
   </property>
   <property>
-    <name>logging.appenders.file.file.type</name>
+    <name>logging.appenders.file.type</name>
     <value>file</value>
     <display-name>logging.appenders.file.type</display-name>
   </property>
   <property>
     <name>logging.appenders.file.fileName</name>
-    <value>kibana</value>
+    <value>/var/log/kibana/kibana.log</value>
     <display-name>logging.appenders.file.fileName</display-name>
   </property>
   <property>
@@ -65,7 +65,7 @@
   </property>
   <property>
     <name>logging.root.appenders</name>
-    <value>[default,file]</value>
+    <value>default,file</value>
     <display-name>logging.root.appenders</display-name>
   </property>
 
