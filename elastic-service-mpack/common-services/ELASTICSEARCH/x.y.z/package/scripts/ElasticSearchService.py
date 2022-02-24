@@ -181,7 +181,7 @@ class ElasticSearchService(Script):
         isMasterNode = hostname in params.elasticSearchMasterHosts
         configs["node.name"] = hostname
         if isMasterNode:
-            if params.masterIsDatanode
+            if params.masterIsDatanode:
                 configs["node.roles"] = "[data,master]"
         else:
             configs["node.roles"] = "[data]"
