@@ -63,11 +63,6 @@
     <value>json</value>
     <display-name>logging.appenders.file.layout.type</display-name>
   </property>
-  <property>
-    <name>logging.root.appenders</name>
-    <value>default,file</value>
-    <display-name>logging.root.appenders</display-name>
-  </property>
 
   <property>
     <name>data.autocomplete.valueSuggestions.timeout</name>
