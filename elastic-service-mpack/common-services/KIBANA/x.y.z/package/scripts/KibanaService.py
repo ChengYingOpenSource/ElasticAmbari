@@ -180,7 +180,8 @@ class KibanaService(Script):
         for x in params.elasticSearchMasterHosts:
             configs["elasticsearch.hosts"].append("http://" + x + ":" + str(params.elasticSearchPort))
         configs["pid.file"] = params.kibanaPidFile
-        configs["logging.dest"] = params.kibanaLogFile
+        configs["logging.appenders.file.fileName"] = params.kibanaLogFile
+        configs["logging.root.appenders"] = ['default','file']
         fin = open(params.kibanaConfigFile, "w")
         fin.write(yaml.safe_dump(configs, encoding='utf-8', allow_unicode=True, default_flow_style=False,
                                  explicit_start=True))
