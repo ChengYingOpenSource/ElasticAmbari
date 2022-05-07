@@ -13,7 +13,8 @@ ElasticAmbari为[Ambari](https://ambari.apache.org/)的一组自定义服务，�
 
 # 用户手册
 
-- [用户手册](docs/USER_MANUAL_CN/README.md)
+- 此mpack解决了我的问题，非常感谢！但在安装过程中，也遇到了很多头疼的问题，因此在此提出我的解决方案帮助更多小伙伴，请看[用户手册](docs/USER_MANUAL_CN/README.md)。
+- [安装问题列表](docs/FAQ/README.md)。
 
 # 参与ElasticAmbari建设
 
