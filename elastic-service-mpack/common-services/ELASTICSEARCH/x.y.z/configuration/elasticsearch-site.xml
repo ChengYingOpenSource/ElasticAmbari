@@ -114,4 +114,21 @@
     <description>Require explicit names when deleting indices.</description>
   </property>
   
+  <property>
+    <name>xpack.security.enabled</name>
+    <value>false</value>
+    <value-attributes>
+      <type>boolean</type>
+      <overridable>true</overridable>
+    </value-attributes>
+  </property>
+  <property>
+    <name>xpack.security.transport.ssl.enabled</name>
+    <value>false</value>
+    <value-attributes>
+      <type>boolean</type>
+      <overridable>true</overridable>
+    </value-attributes>
+  </property>
+  
 </configuration>
