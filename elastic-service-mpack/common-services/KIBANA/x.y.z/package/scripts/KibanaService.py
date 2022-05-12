@@ -76,6 +76,7 @@ class KibanaService(Script):
         if env is not None:
             env.set_params(params)
         self.__createSiteConfig()
+        self.__prepareDirectory()
         Logger.info("configure over")
 
     def __cleanPreviousInstallation(self):

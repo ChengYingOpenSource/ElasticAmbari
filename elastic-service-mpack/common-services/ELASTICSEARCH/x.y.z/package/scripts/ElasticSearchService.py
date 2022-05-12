@@ -74,6 +74,7 @@ class ElasticSearchService(Script):
             env.set_params(params)
         self.__createSiteConfig()
         self.__createJvmOptionFile()
+        self.__prepareDirectory()
         Logger.info("configure over")
 
     def __cleanPreviousInstallation(self):
@@ -213,8 +214,7 @@ class ElasticSearchService(Script):
         fin.close()
         Utils.chown(params.elasticSearchConfigFile, params.elasticSearchUser,
                     params.elasticSearchGroup)
-
-
+        
 if __name__ == "__main__":
     service = ElasticSearchService()
     service.execute()
