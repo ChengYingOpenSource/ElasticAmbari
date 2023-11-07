@@ -11,6 +11,10 @@
         "stack_version": "3.0.0"
       },
       {
+        "stack_name": "ODP",
+        "stack_version": "1.0.0"
+      },
+      {
         "stack_name": "HDF",
         "stack_version": "3.0.0"
       }
@@ -34,6 +38,9 @@
             {
               "stack_name": "HDP",
               "stack_version": "3.0"
+            },{
+              "stack_name": "ODP",
+              "stack_version": "1.0"
             },
             {
               "stack_name": "HDF",
@@ -56,6 +63,10 @@
             {
               "stack_name": "HDP",
               "stack_version": "3.0"
+            },
+            {
+              "stack_name": "ODP",
+              "stack_version": "1.0"
             },
             {
               "stack_name": "HDF",
