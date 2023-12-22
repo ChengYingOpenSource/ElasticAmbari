@@ -18,7 +18,7 @@
 <configuration supports_adding_forbidden="true">
   <property name="kibana.download.url">
     <name>kibana.download.url</name>
-    <value>https://artifacts.elastic.co/downloads/kibana/kibana-7.9.3-linux-x86_64.tar.gz</value>
+    <value>https://artifacts.elastic.co/downloads/kibana/kibana-x.y.z-linux-x86_64.tar.gz</value>
     <display-name>Kibana Download Url</display-name>
     <description>Kibana package download url, it should be a TAR file.</description>
   </property>
