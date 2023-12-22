@@ -28,7 +28,7 @@ mv ${DEST_PKG_DIR}/common-services/ELASTICSEARCH/${DEFAULT_VERSION} ${DEST_PKG_D
 mv ${DEST_PKG_DIR}/addon-services/KIBANA/${DEFAULT_VERSION} ${DEST_PKG_DIR}/addon-services/KIBANA/${SERVICE_VERSION}
 mv ${DEST_PKG_DIR}/common-services/KIBANA/${DEFAULT_VERSION} ${DEST_PKG_DIR}/common-services/KIBANA/${SERVICE_VERSION}
 # mac需要添加空格
-#sed -i ‘’ "s/${DEFAULT_VERSION}/${SERVICE_VERSION}/g" `grep ${DEFAULT_VERSION} -rl ${DEST_PKG_DIR}/*`
+#sed -i "" "s/${DEFAULT_VERSION}/${SERVICE_VERSION}/g" `grep ${DEFAULT_VERSION} -rl ${DEST_PKG_DIR}/*`
 #sed -i "s/${DEFAULT_VERSION}/${SERVICE_VERSION}/g" `grep ${DEFAULT_VERSION} -rl ${DEST_PKG_DIR}/*`
 #find ${DEST_PKG_DIR} -type f -exec sed -i 's/${DEFAULT_VERSION}/${SERVICE_VERSION}/g' {} \;
 find ${DEST_PKG_DIR} -type f -exec perl -pi -e "s/${DEFAULT_VERSION}/${SERVICE_VERSION}/g" {} \;
