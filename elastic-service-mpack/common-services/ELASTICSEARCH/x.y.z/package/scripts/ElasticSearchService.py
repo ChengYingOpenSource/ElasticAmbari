@@ -189,8 +189,12 @@ class ElasticSearchService(Script):
             configs["node.roles"] = ['data']
         configs["path.data"] = params.elasticSearchDataPath
         configs["path.logs"] = params.elasticSearchLogPath
-        configs["discovery.seed_hosts"] = list(
-            set(params.elasticSearchMasterHosts + params.elasticSearchDataHosts))
+        elastic_search_data_hosts = params.elasticSearchDataHosts if hasattr(params, 'elasticSearchDataHosts') else []
+        if elastic_search_data_hosts and len(elastic_search_data_hosts) > 0:
+            configs["discovery.seed_hosts"] = list(
+                set(params.elasticSearchMasterHosts + elastic_search_data_hosts))
+        else:
+            configs["discovery.seed_hosts"] = list(set(params.elasticSearchMasterHosts))
         if params.serviceVersion and params.serviceVersion >= "7.0.0":
             configs["cluster.initial_master_nodes"] = params.elasticSearchMasterHosts
         fin = open(params.elasticSearchConfigFile, "w")
